@@ -35,4 +35,6 @@ where
 
 **Assembler** will take the .exe file and will generate the mchine code (consisting of 1s and 0s)
 
+## SoC design and OpenLANE
+
 
