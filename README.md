@@ -85,11 +85,13 @@ and then **`docker`** command is used to enter the bash.
 **`run_synthesis`** it will run the yosys and abc synthesis
 ![run synthesis](https://github.com/user-attachments/assets/e8d8a541-cafc-4e6b-ae59-bc4b495a5d88)
 ![synthesis complete](https://github.com/user-attachments/assets/80b5f7c8-61ec-48f9-b082-88326cdbc81c)
+
+Finding the flipflop ratio
 ![calculation](https://github.com/user-attachments/assets/37399314-e3dd-4863-b872-2231ae907ca2)
 The total no.of cells used in the design are 14876 and The count of D-flipflops in the design are 1613.
 to find the flip flop ratio (1613/14876)*100= **10.84%**
 
-and the new files are created in the **picorv32a** folder
+after running synthesis the new files are created in the **picorv32a** folder
 
 the mergerd file
 ![new files with merged file](https://github.com/user-attachments/assets/e47daf49-db2a-42da-b045-61c1fa2970cc)
