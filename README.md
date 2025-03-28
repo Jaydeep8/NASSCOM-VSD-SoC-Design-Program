@@ -75,3 +75,8 @@ The simplified RTL2GDS2 flow is shown in the image
 The Openlane flow is the complete Open source process to perform RTL2 GDS2 process , The openlane supports various tools that support in the flow like **Yosys,open STA, fault, openlane road, magic**.
 
 ### Get familiar to open-source EDA tools
+The first step is to go to the openlane directory **`~/Desktop/work/tools/openlane_working_dir/openlane`**
+and then **`docker`** command is used to enter the bash.
+**`./flows.tcl -interactive`** is used to run the interactive (step by step mode)
+**`package require openlane 0.9`** it will import the 0.9 openlane package
+**`prep -design picorv32a`** it will prepare the implementation of picorv32a design
