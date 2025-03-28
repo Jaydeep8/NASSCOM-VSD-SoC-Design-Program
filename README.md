@@ -75,8 +75,24 @@ The simplified RTL2GDS2 flow is shown in the image
 The Openlane flow is the complete Open source process to perform RTL2 GDS2 process , The openlane supports various tools that support in the flow like **Yosys,open STA, fault, openlane road, magic**.
 
 ### Get familiar to open-source EDA tools
+The **picorv32a** is the design that we are giong to work on![empty folder](https://github.com/user-attachments/assets/39644788-7813-497e-9763-3204db5f1405)
+
 The first step is to go to the openlane directory **`~/Desktop/work/tools/openlane_working_dir/openlane`**
 and then **`docker`** command is used to enter the bash.
 **`./flows.tcl -interactive`** is used to run the interactive (step by step mode)
-**`package require openlane 0.9`** it will import the 0.9 openlane package
+**`package require openlane 0.9`** it will import the 0.9 openlane package.
 **`prep -design picorv32a`** it will prepare the implementation of picorv32a design
+**`run_synthesis`** it will run the yosys and abc synthesis
+![run synthesis](https://github.com/user-attachments/assets/e8d8a541-cafc-4e6b-ae59-bc4b495a5d88)
+![synthesis complete](https://github.com/user-attachments/assets/80b5f7c8-61ec-48f9-b082-88326cdbc81c)
+![calculation](https://github.com/user-attachments/assets/37399314-e3dd-4863-b872-2231ae907ca2)
+The total no.of cells used in the design are 14876 and The count of D-flipflops in the design are 1613.
+to find the flip flop ratio (1613/14876)*100= **10.84%**
+and the new files are created in the **picorv32a** folder
+
+the mergerd file
+![new files with merged file](https://github.com/user-attachments/assets/e47daf49-db2a-42da-b045-61c1fa2970cc)
+the synthesis file
+![synthesis file](https://github.com/user-attachments/assets/a9728ad6-c5c8-4950-a8c8-485150f2309a)
+
+
