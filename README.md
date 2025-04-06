@@ -1,6 +1,6 @@
 # NASSCOM-VSD-SoC-Design-Program
 # Contents 
-1) [Day1: Inception of open-source EDA, OpenLANE and Sky130 PDK](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day1---inception-of-open-source-eda-openlane-and-sky130-pdk)
+1) [Day1: Inception of open-source EDA, OpenLANE and Sky130 PDK](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/tree/main?tab=readme-ov-file#day1---inception-of-open-source-eda-openlane-and-sky130-pdk)
 2) [Day2: Good FloorPlan Vs Bad FloorPlan and Introduction to Library Cells](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day2---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
 3) [Day3: Design library cell using Magic Layout and ngspice characterization](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day3---design-library-cell-using-magic-layout-and-ngspice-characterization)
 4) [Day4: Pre-layout timing analysis and importance of good clock tree](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day4---pre-layout-timing-analysis-and-importance-of-good-clock-tree)
