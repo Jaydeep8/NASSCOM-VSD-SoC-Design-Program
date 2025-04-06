@@ -278,6 +278,131 @@ plot y vs time a
 ```
 ![image](https://github.com/user-attachments/assets/c25c59d6-b431-45be-be0e-fd88d4109cca)
 
+![6 all delay calculation](https://github.com/user-attachments/assets/5024f8d4-524d-4500-88b7-8475bb4d1d44)
+```math
+Rise\  time = Time\ taken\ for\ output\ to\ rise\ to\ 80\% - Time\ taken\ for\ output\ to\ rise\ to\ 20\%
+```
+```math
+20\%\ of\ output = 0.66\ V
+```
+```math
+80\%\ of\ output = 2.64\ V
+```
+
+
+```math
+Rise\  time = 2.205 - 2.164 = 0.041\ ns 
+```
+
+
+
+
+```math
+Fall\ time = Time\ taken\ for\ output\ to\ fall\ to\ 20\% - Time\ taken\ for\ output\ to\ fall\ to\ 80\%
+```
+```math
+20\%\ of\ output = 660\ mV
+```
+```math
+80\%\ of\ output = 2.64\ V
+```
+```math
+Fall\ time = 8.068 - 8.040 = 0.028\ ns
+```
+
+
+
+```math
+Propagation\ Delay = Time\ taken\ for\ output\ to\ rise\ to\ 50\% - Time\ taken\ for\ input\ to\ fall\ to\ 50\%
+```
+```math
+50\%\ of\ 3.3\ V = 1.65\ V
+```
+
+
+
+```math
+Propagation\ Delay = 2.185 - 2.15 = 0.035\ ns 
+```
+
+
+
+```math
+Cell\ Fall\ Delay = Time\ taken\ for\ output\ to\ fall\ to\ 50\% - Time\ taken\ for\ input\ to\ rise\ to\ 50\%
+```
+
+
+```math
+50\%\ of\ 3.3\ V = 1.65\ V
+```
+
+
+
+```math
+Cell\ Fall\ Delay = 4.05467 - 4.04998 = 0.00469\ ns 
+```
+
+
+```bash
+#Download the drc_test folder in home directory
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+#To extract the labs from the zip file
+tar xfz drc_tests.tgz
+
+# Change directory into the lab folder
+cd drc_tests
+
+# List all files and directories present in the current directory
+ls -lrt
+
+# Command to view .magicrc file
+gvim .magicrc
+
+#To open magic tool
+magic -d XR
+
+
+
+```
+![image](https://github.com/user-attachments/assets/227beae4-08e7-422b-bcd5-18bee720f89f)
+![image](https://github.com/user-attachments/assets/1b933219-ba32-437e-9e14-cd4c770f7d46)
+
+```bash
+#The metal 3-filled area will be associated with the VIA2 mask.
+cif see VIA2
+```
+![image](https://github.com/user-attachments/assets/5a9018b1-5bd9-4ccf-a3ec-0e92284d5b63)
+
+- open the ploy.mag file. use the below command in tkcon window
+```bash
+load poly.mag
+```
+![image](https://github.com/user-attachments/assets/a40d958c-6c9d-49d3-ac4b-d29fdb77f714)
+
+![image](https://github.com/user-attachments/assets/58e93d4d-43e8-429b-9e8f-5d2459733c8e)
+
+![image](https://github.com/user-attachments/assets/5a3ef36a-c7a3-42d8-b64c-6ee22008e8a8)
+
+```bash
+ # Loading updated tech file
+   tech load sky130A.tech
+
+ # Must re-run drc check to see updated drc errors
+  drc check
+
+ # Selecting region displaying the new errors and getting the error messages 
+  drc why
+```
+![image](https://github.com/user-attachments/assets/def5b7de-6fb7-46bb-be9e-e6af03113d11)
+
+- Insert new commands in sky130A.tech file to update drc
+![image](https://github.com/user-attachments/assets/efc428c4-d556-4478-bb97-4dc03952fc50)
+
+
+
+
+
 
 
 ## Day4 - *Pre-layout timing analysis and importance of good clock tree*
