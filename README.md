@@ -1,6 +1,11 @@
 # NASSCOM-VSD-SoC-Design-Program
 # Contents 
-1. [Day1](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day1---inception-of-open-source-eda-openlane-and-sky130-pdk)
+1. [Day1 Inception of open-source EDA, OpenLANE and Sky130 PDK](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day1---inception-of-open-source-eda-openlane-and-sky130-pdk)
+2. [Day2 Good FloorPlan Vs Bad FloorPlan and Introduction to Library Cells](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day2---good-floorplan-vs-bad-floorplan-and-introduction-to-library-cells)
+3. [Day3 Design library cell using Magic Layout and ngspice characterization](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day3---design-library-cell-using-magic-layout-and-ngspice-characterization)
+4. [Day4 Pre-layout timing analysis and importance of good clock tree](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day4---pre-layout-timing-analysis-and-importance-of-good-clock-tree)
+5. [Day5 Final steps for RTL2GDS using tritonRoute and openSTA](https://github.com/Jaydeep8/NASSCOM-VSD-SoC-Design-Program/edit/main/README.md#day5---final-steps-for-rtl2gds-using-tritonroute-and-opensta)
+
 
 ## Day1 - *Inception of open-source EDA, OpenLANE and Sky130 PDK*
 
@@ -97,5 +102,105 @@ the mergerd file
 ![new files with merged file](https://github.com/user-attachments/assets/e47daf49-db2a-42da-b045-61c1fa2970cc)
 the synthesis file
 ![synthesis file](https://github.com/user-attachments/assets/a9728ad6-c5c8-4950-a8c8-485150f2309a)
+
+
+## Day2 - *Good FloorPlan Vs Bad FloorPlan and Introduction to Library Cells*
+Chip FloorPlanning Considerations
+![image](https://github.com/user-attachments/assets/3292fd6c-0838-40b3-8864-3cdef867e621)
+Utilization Factor and Aspect Ratio
+In order to find out the Utilization Factor and Aspect Ratio, first we need to know how to define height and width of core and die areas.
+
+- Core is an area in a chip which is used to place all the logic cells and components in a chip. It is the place where logic lies in a chip.
+
+- Die is an area that encircles the core area and used for placing I/O related components.
+
+The height and width of core area will be decided by the netlist of the design. It will be based on the no.of components required in order to execute the logic and the height and width of the die area will be dependent on the core area height and width.
+![image](https://github.com/user-attachments/assets/0a1dd892-3d34-4040-9873-54322c6fd552)        
+*Utilization Factor :*  Utilization Factor is defined as "The ratio of the core area occupied by the netlist to the total core area".For a good FloorPlan, The Utilization Factor should never be '1' because when the Utilization factor becomes '1' , there will be no place for adding additional logic if needed and it will be considered as a bad FloorPlan.
+
+`Utilization Factor = (Area occupied by netlist / Total core area)`
+
+*Aspect Ratio :*  Aspect Ratio is defined as "The ratio of Height of the core to the width of the core". If the Aspect ratio is '1' , then the core is said to be in a square shape and other than '1' the core will be a rectangle.
+
+`Aspect Ratio = (Height of the core / Width of the core)`
+
+![image](https://github.com/user-attachments/assets/42cf43d1-a8c2-443c-b228-c592fed3309f)
+
+In this case, when calculated
+
+- Utilization factor = (4 squnits)/(4 squnits) = 1
+
+- Aspect Ratio = (2 units)/(2 units) = 1 //The core is in a square shape.
+
+
+![image](https://github.com/user-attachments/assets/d002ec6c-0f26-4f74-9287-dac78967d5ff)
+
+In this case, when calculated
+
+ Utilization factor = (4 squnits)/(8 squnits) = 0.5
+
+  Aspect Ratio = (2 units)/(4 units) = 0.5 //The core is in a rectangular shape.
+
+- Define location of pre-placed cells                                                               
+  Some of the IPs are placed by the user before automated placement and routing and placement. Hence they are called pre-placed cells.
+
+ - Surround pre-placed cell with decoupling capacitor.                                                                             
+ state change from a logic '0' to logic '1' requires charge from a voltage source. But, due to the connecting wires from the voltage source to the filpflops, 
+ there might be voltage drop because of resistance of the wires. If the voltage drop is less than the noise margin, there will no state change. To mitigate this 
+ issuse , we make use of decoupling capacitors. These decoupling capacitors are placed near all the sub-blocks.
+
+- Power planning                                                                                    
+  Power planning is a critical aspect of integrated circuit (IC) and system-on-chip (SoC) design that involves creating an efficient power distribution network 
+  (PDN) to ensure reliable power delivery to all components of the chip.
+
+ - Pin placement                                              
+  The I/O pins are placed between the boundaries of die and core. The pins are placed in such a way that they are close to the blocks that they feed as input to. 
+  The clocks pins are bigger than the normal pins as to provide least resistance path since clocks provide continuous signals throughout the chip function.
+
+ - Logical cells placement blockage                          
+  we make sure to block the pin placement region as to avoid the automated place and route from accessing this region. This is called Logical cells placement 
+  blockage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Day3 - *Design library cell using Magic Layout and ngspice characterization*
+
+
+
+
+
+
+
+
+
+
+
+## Day4 - *Pre-layout timing analysis and importance of good clock tree*
+
+
+
+
+
+
+
+
+
+## Day5 - *Final steps for RTL2GDS using tritonRoute and openSTA*
 
 
