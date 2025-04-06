@@ -264,6 +264,22 @@ ext2spice
 ![image](https://github.com/user-attachments/assets/465b87dd-4619-436a-a9a8-a80857f0c662)
 
 
+After extracting the SPICE file, we need to update it according to the design.
+
+![image](https://github.com/user-attachments/assets/c5832f19-5c39-4ac1-85c1-b92479db6a3c)
+
+
+```bash
+#To run the SPICE file using ngspice tool
+ngspice sky130_inv.spice
+
+# To load the plot
+plot y vs time a
+```
+![image](https://github.com/user-attachments/assets/c25c59d6-b431-45be-be0e-fd88d4109cca)
+
+
+
 ## Day4 - *Pre-layout timing analysis and importance of good clock tree*
 
 
