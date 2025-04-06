@@ -162,8 +162,17 @@ In this case, when calculated
   we make sure to block the pin placement region as to avoid the automated place and route from accessing this region. This is called Logical cells placement 
   blockage.
 
+## day2 lab 
 
+```bash
+ run_floorplan
+```
 
+![run_floorplan](https://github.com/user-attachments/assets/b3f26a7a-524f-4ef8-a90a-c12f5441f4f2)
+
+**floorplan def file**
+
+![image](https://github.com/user-attachments/assets/e123d7ba-df3b-4554-86b2-4b05d96b0c55)
 
 
 
