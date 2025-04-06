@@ -115,7 +115,8 @@ In order to find out the Utilization Factor and Aspect Ratio, first we need to k
 - Die is an area that encircles the core area and used for placing I/O related components.
 
 The height and width of core area will be decided by the netlist of the design. It will be based on the no.of components required in order to execute the logic and the height and width of the die area will be dependent on the core area height and width.
-![image](https://github.com/user-attachments/assets/0a1dd892-3d34-4040-9873-54322c6fd552)        
+
+![image](https://github.com/user-attachments/assets/0a1dd892-3d34-4040-9873-54322c6fd552)         
 *Utilization Factor :*  Utilization Factor is defined as "The ratio of the core area occupied by the netlist to the total core area".For a good FloorPlan, The Utilization Factor should never be '1' because when the Utilization factor becomes '1' , there will be no place for adding additional logic if needed and it will be considered as a bad FloorPlan.
 
 `Utilization Factor = (Area occupied by netlist / Total core area)`
