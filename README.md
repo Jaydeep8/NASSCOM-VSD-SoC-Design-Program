@@ -411,6 +411,8 @@ load poly.mag
 
 
 - Incorrectly implemented nwell.4
+
+
 ![image](https://github.com/user-attachments/assets/043000ad-4f67-4486-b673-47bc1dbead18)
 
 
@@ -430,9 +432,254 @@ load poly.mag
 ## Day4 - *Pre-layout timing analysis and importance of good clock tree*
 
 
+Screenshot of tracks.info of sky130_fd_sc_hd
+
+![image](https://github.com/user-attachments/assets/1ceb887e-7388-44e2-a89c-30fe77dc2285)
+
+
+Commands to open the custom inverter layout
+
+```bash
+# Change directory to vsdstdcelldesign
+cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+
+```
+![image](https://github.com/user-attachments/assets/b0b9ae0f-da4c-4ad6-9165-4419e0995230)
+
+Commands for tkcon window to set grid as tracks of locali layer
+```bash
+
+# Get syntax for grid command
+help grid
+
+# Set grid values accordingly
+grid 0.46um 0.34um 0.23um 0.17um
+
+
+```
 
 
 
+![image](https://github.com/user-attachments/assets/687be951-a2bc-4551-8003-f01b2828f0ef)
+
+```bash
+#to write lef file
+lef write
+```
+- Now we can open the LEF file and go through it.
+
+![image](https://github.com/user-attachments/assets/b0dcafb6-9b25-4205-8404-a726037b2efe)
+
+- Copy the newly generated lef and associated required lib files to 'picorv32a' design 'src' directory.
+
+```bash
+# Copy lef file
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# Copy lib files
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+```
+![image](https://github.com/user-attachments/assets/7899addb-3357-4685-86fb-98d102b20951)
+
+- Edit 'config.tcl' to change lib file and add the new extra lef into the openlane flow.
+```bash
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+
+
+````
+![image](https://github.com/user-attachments/assets/4367005d-093d-411c-ae06-23b19246a19f)
+
+- Run openlane flow synthesis with newly inserted custom inverter cell.
+```bash
+# Open the openlane terminal
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+docker
+
+./flow.tcl -interactive
+
+# Inside openlane terminal
+
+# below cmd to be used to overwrite previous run data 
+prep -design picorv32a -tag 28-03_10-01 -overwrite 
+
+# Cmds to include the new cell led in merged.lef in /tm[ folder
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+run_synthesis
+
+```
+![image](https://github.com/user-attachments/assets/255f474f-62b7-4dec-b2b3-b6c29cfbf1e5)
+
+```bash
+# Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled , if enabled =1
+echo $::env(SYNTH_BUFFERING)
+
+# Command to display current value of variable SYNTH_SIZING, if enabled =1
+echo $::env(SYNTH_SIZING)
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+
+```
+![image](https://github.com/user-attachments/assets/738a2d7e-a1a6-41a7-9dfd-7973b9ba7230)
+
+```bash
+run_synthesis
+```
+![image](https://github.com/user-attachments/assets/a47e832a-c0e0-4ecd-9760-1199fa870842)
+
+Comparing to previously noted run values area has increased and worst negative slack has become 0
+
+- Now run Floor plan
+
+```bash
+#insted of run_floorplan
+
+init_floorplan
+place_io
+tap_decap_or
+
+
+
+```
+![image](https://github.com/user-attachments/assets/2e86f718-381c-4118-86b9-18e094c3bb5d)
+
+
+```bash
+run_placement
+```
+
+- Open the layout using MAGIC tool to see is our inverter is inserted into the picorv32 design
+
+```bash
+# enter the dir of design
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/28-03_10-01/results/placement/
+
+# Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+![image](https://github.com/user-attachments/assets/ab3b9fd4-51c1-4fa1-8ac1-6e034adf170d)
+
+
+![image](https://github.com/user-attachments/assets/b1823817-a7f3-48e7-94b3-0a7b372a8679)
+
+![image](https://github.com/user-attachments/assets/fec37c62-75a1-4324-aac6-665b6fdf3293)
+```bash
+#command to view internal connectivity layers 
+expand
+```
+![image](https://github.com/user-attachments/assets/1919ea44-c6cb-41bc-a96b-4f3881171712)
+
+- Newly created pre_sta.conf for STA analysis in openlane directory
+
+![image](https://github.com/user-attachments/assets/5358bbe1-1eb5-487a-b001-067051f1c8c9)
+
+- Newly created my_base.sdc for STA analysis in openlane/designs/picorv32a/src directory based on the file openlane/scripts/base.sdc
+
+  ![image](https://github.com/user-attachments/assets/a1f98a8f-ba6e-4dbc-9421-984186142fe3)
+
+Commands to run STA in another terminal
+```bash
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Command to invoke OpenSTA tool with script
+sta pre_sta.conf
+```
+![image](https://github.com/user-attachments/assets/bb16e4c1-9f58-48b0-a28e-aa9b75d3c7a4)
+
+![image](https://github.com/user-attachments/assets/5d7fbe63-7a6e-4280-a3cf-6e46af775792)
+
+![image](https://github.com/user-attachments/assets/3240dc11-585b-4147-be53-874ae0b2ccf1)
+
+![image](https://github.com/user-attachments/assets/adc95805-37aa-4e04-88a6-312bc67fb409)
+
+![image](https://github.com/user-attachments/assets/d63da4fe-6bc9-4e38-9251-db7ddbc98dbc)
+
+- Since more fanout is causing more delay we can add parameter to reduce fanout and do synthesis again
+
+```bash
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a -tag 28-03_10-01 -overwrite
+
+# Adiitional commands to include newly added lef to openlane flow
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to set new value for SYNTH_MAX_FANOUT
+set ::env(SYNTH_MAX_FANOUT) 4
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+
+
+```
+![image](https://github.com/user-attachments/assets/03ab9c99-756b-4786-b9e1-533d6a6c1f4d)
+
+
+- Again run STA
+  ```bash
+sta pre_sta.conf
+
+# Reports all the connections to a net
+report_net -connections _00293_
+
+# To replacing cell
+replace_cell _33213_ sky130_fd_sc_hd__mux2_2
+
+# To generating custom timing report
+report_checks -fields {net cap slew input_pins} -digits 4
+
+  ```
+![image](https://github.com/user-attachments/assets/2bdb733d-2b2e-492c-8d49-7b065faef43b)
+
+![image](https://github.com/user-attachments/assets/3143a6e1-16be-41c4-a510-b5741affbf42)
+**`slack has reduced to -4.5889 from -4.62`**
+
+![image](https://github.com/user-attachments/assets/4d15501e-6381-476b-9ecc-7cb339a63a63)
+![image](https://github.com/user-attachments/assets/23c1d078-c581-4fc2-9445-6e27f4ae0e64)
+**`slack has reduced to -4.0255 from -4.5889`**
+
+- to check the timimg through a cell we changed
+```bash
+report_checks -from _35312_ -to _35239_ -through _22284_
+# report_checks -from _start_pont_net_id -to end_point_net_id -through cell_id
+
+```
+![image](https://github.com/user-attachments/assets/2a10f8e2-a3c2-4560-a212-892ccdd9b7a7)
 
 
 
