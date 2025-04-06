@@ -382,7 +382,13 @@ load poly.mag
 
 ![image](https://github.com/user-attachments/assets/58e93d4d-43e8-429b-9e8f-5d2459733c8e)
 
+
+- Insert new commands in sky130A.tech file to update drc
+
 ![image](https://github.com/user-attachments/assets/5a3ef36a-c7a3-42d8-b64c-6ee22008e8a8)
+
+![image](https://github.com/user-attachments/assets/efc428c4-d556-4478-bb97-4dc03952fc50)
+
 
 ```bash
  # Loading updated tech file
@@ -396,9 +402,19 @@ load poly.mag
 ```
 ![image](https://github.com/user-attachments/assets/def5b7de-6fb7-46bb-be9e-e6af03113d11)
 
-- Insert new commands in sky130A.tech file to update drc
-![image](https://github.com/user-attachments/assets/efc428c4-d556-4478-bb97-4dc03952fc50)
 
+- Incorrectly implemented nwell.4
+![image](https://github.com/user-attachments/assets/043000ad-4f67-4486-b673-47bc1dbead18)
+
+
+- New commands inserted in sky130A.tech file to update drc
+![image](https://github.com/user-attachments/assets/68e3d1c3-6d35-4254-bca9-aa8f9bf214a0)
+
+
+![image](https://github.com/user-attachments/assets/af9a8f32-d71b-4f50-b032-7812ef026fd9)
+
+
+![image](https://github.com/user-attachments/assets/8aaa07e6-d435-4966-89ee-cbccd3dd663f)
 
 
 
