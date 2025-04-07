@@ -480,13 +480,8 @@ lef write
 cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 
 # List and check whether it's copied
-ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+ls -ltr
 
-# Copy lib files
-cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
-
-# List and check whether it's copied
-ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
 ```
 ![image](https://github.com/user-attachments/assets/7899addb-3357-4685-86fb-98d102b20951)
 
@@ -596,11 +591,11 @@ expand
 ```
 ![image](https://github.com/user-attachments/assets/1919ea44-c6cb-41bc-a96b-4f3881171712)
 
-- Newly created pre_sta.conf for STA analysis in openlane directory
+- Newly created **`pre_sta.conf`** for STA analysis in openlane directory
 
 ![image](https://github.com/user-attachments/assets/5358bbe1-1eb5-487a-b001-067051f1c8c9)
 
-- Newly created my_base.sdc for STA analysis in openlane/designs/picorv32a/src directory based on the file openlane/scripts/base.sdc
+- Newly created **`my_base.sdc`** for STA analysis in openlane/designs/picorv32a/src directory based on the file openlane/scripts/base.sdc
 
   ![image](https://github.com/user-attachments/assets/a1f98a8f-ba6e-4dbc-9421-984186142fe3)
 
@@ -653,6 +648,7 @@ run_synthesis
 - Again run STA
 
 ```bash
+# Command to invoke OpenSTA tool with script
 sta pre_sta.conf
 
 #Reports all the connections to a net
@@ -678,7 +674,7 @@ report_checks -fields {net cap slew input_pins} -digits 4
 - to check the timimg through a cell we changed
 
 ```bash
-report_checks -from _35312_ -to _35239_ -through _22284_
+report_checks -from _35312_ -to _35238_ -through _22284_
 #Generating custom timing report
 
 
