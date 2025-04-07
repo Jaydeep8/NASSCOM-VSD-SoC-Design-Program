@@ -732,7 +732,8 @@ set ::env(SYNTH_STRATEGY) "DELAY 3"
 # Command to set new value for SYNTH_SIZING
 set ::env(SYNTH_SIZING) 1
 
-#
+#Command to set new max fanout
+set ::env(SYNTH_MAX_FANOUT) 4
 
 
 # Now that the design is prepped and ready, we can run synthesis using following command
@@ -777,7 +778,7 @@ set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
 echo $::env(CTS_CLK_BUFFER_LIST)
 
 # Setting def as placement def otherwise, we get clock not found error
-set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/28-0_10-01//results/placement/picorv32a.placement.def
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/28-03_10-01//results/placement/picorv32a.placement.def
 
 # Run CTS again
 run_cts
