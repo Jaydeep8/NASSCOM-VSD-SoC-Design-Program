@@ -906,7 +906,8 @@ echo $::env(CTS_CLK_BUFFER_LIST)
 ## Day5 - *Final steps for RTL2GDS using tritonRoute and openSTA*
 
 - Power Distribution Network and routing
-  After completion of CTS, now we need to lay down power distribution network(PDN)
+
+After completion of CTS, now we need to lay down power distribution network(PDN)
 
 ```bash
 
@@ -1013,20 +1014,19 @@ read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
 set_propagated_clock [all_clocks]
 
 # Read SPEF
-read_spef /openLANE_flow/designs/picorv32a/runs/04-04_09-02/results/routing/picorv32a.spef
+read_spef /openLANE_flow/designs/picorv32a/runs/28-03_10-01/results/routing/picorv32a.spef
 
 # Generating custom timing report
 report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
-
-# Exit to OpenLANE flow
-exit
 
 ```
 
 ![post route sta](https://github.com/user-attachments/assets/c1dacafa-a9b6-43b3-944a-23cef171a8b7)
 
+**`Hold slack`**
 ![9 hold slack](https://github.com/user-attachments/assets/4164afbf-a8bf-4e23-8c26-d4cde33e3723)
 
+**`Setup slack`**
 ![9 setup slack](https://github.com/user-attachments/assets/98fcdc49-6ef6-4e08-84f7-e233690a668a)
 
 
