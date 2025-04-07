@@ -797,9 +797,6 @@ read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
 # Setting all cloks as propagated clocks
 set_propagated_clock [all_clocks]
 
-# Check syntax of 'report_checks' command
-help report_checks
-
 # Generating custom timing report
 report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
 
@@ -819,7 +816,7 @@ exit
 
 
 
-- Post cts Timing analysis
+- Timing analysis with right timing libraries and CTS assignment
 
 ```bash
 
