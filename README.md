@@ -715,6 +715,53 @@ write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/des
 
 ![picorv32a synthesis](https://github.com/user-attachments/assets/dc6723f7-fedf-4354-8b9e-7d6003805071)
 
+- Rin following commands in the opelane flow
+
+```bash
+
+# Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 28-03_10-01 -overwrite
+
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+# Follwing commands are alltogather sourced in "run_floorplan" command
+init_floorplan
+place_io
+tap_decap_or
+
+# Now we are ready to run placement
+run_placement
+
+# Incase getting error
+unset ::env(LIB_CTS)
+
+# With placement done we are now ready to run CTS
+run_cts
+
+```
+
+![21 running synthesis](https://github.com/user-attachments/assets/6d8e989c-fc91-46e6-9ea4-eb6391611b4f)
+
+![image](https://github.com/user-attachments/assets/3132dea9-0686-43cb-bdbf-de39b9e390ca)
+
+**`Hold slack`**
+![image](https://github.com/user-attachments/assets/b813f918-fe2e-47ef-82cc-b710c98155dd)
+
+**`Setup slack`**
+![image](https://github.com/user-attachments/assets/c8a2b3ba-62aa-467d-825f-c336e17ee1fe)
+
+
 
 
 
