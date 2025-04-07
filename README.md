@@ -651,7 +651,8 @@ run_synthesis
 
 
 - Again run STA
-  ```bash
+
+```bash
 sta pre_sta.conf
 
 #Reports all the connections to a net
@@ -662,18 +663,20 @@ replace_cell _33213_ sky130_fd_sc_hd__mux2_2
 
 #To generating custom timing report
 report_checks -fields {net cap slew input_pins} -digits 4
-
-  ```
+```
 ![image](https://github.com/user-attachments/assets/2bdb733d-2b2e-492c-8d49-7b065faef43b)
 
 ![image](https://github.com/user-attachments/assets/3143a6e1-16be-41c4-a510-b5741affbf42)
+
 **`slack has reduced to -4.5889 from -4.62`**
 
 ![image](https://github.com/user-attachments/assets/4d15501e-6381-476b-9ecc-7cb339a63a63)
 ![image](https://github.com/user-attachments/assets/23c1d078-c581-4fc2-9445-6e27f4ae0e64)
+
 **`slack has reduced to -4.0255 from -4.5889`**
 
 - to check the timimg through a cell we changed
+
 ```bash
 report_checks -from _35312_ -to _35239_ -through _22284_
 # report_checks -from _start_pont_net_id -to end_point_net_id -through cell_id
