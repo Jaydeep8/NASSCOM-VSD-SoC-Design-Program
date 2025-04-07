@@ -763,6 +763,53 @@ run_cts
 
 
 
+- Timing analysis with **`openroad`** 
+
+```bash
+
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/28-03_10-01/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/28-03_10-0/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+write_db pico_cts.db
+
+# Loading the created database in OpenROAD
+read_db pico_cts.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/28-03_10-01/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Check syntax of 'report_checks' command
+help report_checks
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
+
+```
+
+![post cts](https://github.com/user-attachments/assets/e1eec73f-69e0-4e87-b7a6-3e9cfc589bcc)
+
 
 **`Hold slack`**
 ![image](https://github.com/user-attachments/assets/b813f918-fe2e-47ef-82cc-b710c98155dd)
@@ -770,6 +817,9 @@ run_cts
 **`Setup slack`**
 ![image](https://github.com/user-attachments/assets/c8a2b3ba-62aa-467d-825f-c336e17ee1fe)
 
+
+
+- Post cts Timing analysis
 
 ```bash
 
