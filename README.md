@@ -715,7 +715,7 @@ write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/des
 
 ![picorv32a synthesis](https://github.com/user-attachments/assets/dc6723f7-fedf-4354-8b9e-7d6003805071)
 
-- Rin following commands in the opelane flow
+- Run following commands in the opelane flow
 
 ```bash
 
@@ -731,6 +731,9 @@ set ::env(SYNTH_STRATEGY) "DELAY 3"
 
 # Command to set new value for SYNTH_SIZING
 set ::env(SYNTH_SIZING) 1
+
+#
+
 
 # Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
@@ -831,7 +834,12 @@ echo $::env(CTS_CLK_BUFFER_LIST)
 
 ```
 
-![image](https://github.com/user-attachments/assets/b84dadd8-4923-4d6c-a746-c3a0cf2c6f5b)
+![25 openroad commands](https://github.com/user-attachments/assets/4f126c48-778c-42b0-8e25-6be8e39684b8)
+
+
+![25 openroad](https://github.com/user-attachments/assets/d7f00cfe-43b2-409a-b79c-4b2b038256cc)
+
+
 
 **`Hold Slack`**
 ![image](https://github.com/user-attachments/assets/6ea1c350-5610-48ef-b58d-dc228018c7ca)
