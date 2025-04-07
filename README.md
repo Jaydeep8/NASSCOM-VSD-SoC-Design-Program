@@ -905,4 +905,151 @@ echo $::env(CTS_CLK_BUFFER_LIST)
 
 ## Day5 - *Final steps for RTL2GDS using tritonRoute and openSTA*
 
+- Power Distribution Network and routing
+  After completion of CTS, now we need to lay down power distribution network(PDN)
+
+```bash
+
+#in openlane directory
+#it should be pointing to CTS def
+echo $::env(CURRENT_DEF)
+
+gen_pdn
+```
+![gen_pdn](https://github.com/user-attachments/assets/3ed9b60a-e2ae-4406-a668-7c90a76284ee)
+
+
+generated pdn.def file
+![image](https://github.com/user-attachments/assets/a6ef9740-a190-4ece-8082-0fba1d0e56cc)
+
+to view pdn.def in the magic
+
+```bash
+cd ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/28-03_10-01/tmp/floorplan
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../merged.lef def read 12-pdn.def &
+
+
+```
+
+![image](https://github.com/user-attachments/assets/429d513e-f5c6-4c26-b91d-6e246a8154f0)
+
+![image](https://github.com/user-attachments/assets/71fbc28a-f246-4a9e-983e-1dcbc65302f1)
+
+
+- Perfrom detailed routing using TritonRoute
+
+```bash
+
+#Check value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
+
+#Check value of 'ROUTING_STRATEGY'
+echo $::env(ROUTING_STRATEGY)
+
+#Command for detailed route using TritonRoute
+run_routing
+
+```
+
+![7 routing complete](https://github.com/user-attachments/assets/9330eaa7-33e7-45d8-88fd-5761923b7606)
+
+![6 0 violations](https://github.com/user-attachments/assets/a85c1a6f-26ac-4d51-ba26-60ced38550e2)
+
+
+
+fast route guide present in openlane/designs/picorv32a/runs/28-03_10-01/tmp/routing directory
+
+![8 routing guide nets](https://github.com/user-attachments/assets/7c34a08f-10bb-4edb-ba8c-3b1486607935)
+
+
+
+- Commands to load routed def in magic in another terminal
+
+```bash
+
+cd ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/28-03_10-01/results/routing/
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+
+
+```
+
+![4 magic rout](https://github.com/user-attachments/assets/4d465984-42ba-4553-94e8-8184fd6d4f22)
+
+
+![5 magic routed cells](https://github.com/user-attachments/assets/9108bafc-9a04-432e-a217-b6270aa1bb40)
+
+
+- Post-Route OpenSTA timing analysis with the extracted parasitics of the route.
+
+
+```bash
+
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/28-03_10-01/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/28-03_10-01/results/routing/picorv32a.def
+
+# Creating an OpenROAD database to work with
+write_db pico_route.db
+
+# Loading the created database in OpenROAD
+read_db pico_route.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/28-03_10-01/results/synthesis/picorv32a.synthesis_preroute.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Read SPEF
+read_spef /openLANE_flow/designs/picorv32a/runs/04-04_09-02/results/routing/picorv32a.spef
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
+
+```
+
+![post route sta](https://github.com/user-attachments/assets/c1dacafa-a9b6-43b3-944a-23cef171a8b7)
+
+![9 hold slack](https://github.com/user-attachments/assets/4164afbf-a8bf-4e23-8c26-d4cde33e3723)
+
+![9 setup slack](https://github.com/user-attachments/assets/98fcdc49-6ef6-4e08-84f7-e233690a668a)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
