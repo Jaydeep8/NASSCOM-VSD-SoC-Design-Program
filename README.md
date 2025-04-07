@@ -679,10 +679,47 @@ report_checks -fields {net cap slew input_pins} -digits 4
 
 ```bash
 report_checks -from _35312_ -to _35239_ -through _22284_
-# report_checks -from _start_pont_net_id -to end_point_net_id -through cell_id
+#Generating custom timing report
+
 
 ```
 ![image](https://github.com/user-attachments/assets/2a10f8e2-a3c2-4560-a212-892ccdd9b7a7)
+
+
+- Replace the old netlist with the new netlist generated after timing ECO fix and implement the floorplan, placement and cts.
+Now to insert this updated netlist to PnR flow and we can use write_verilog and overwrite the synthesis netlist but before that we are going to make a copy of the old old netlist
+
+Commands to make copy of netlist
+
+```bash
+# Change from home directory to synthesis results directory
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/28-03_10-01/results/synthesis/
+
+# List contents of the directory
+ls
+
+# Copy and rename the netlist
+cp picorv32a.synthesis.v picorv32a.synthesis_old.v
+
+```
+- Commands to write verilog
+
+```bash
+
+# Overwriting current synthesis netlist
+write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/28-03_10-01/results/synthesis/picorv32a.synthesis.v
+
+```
+
+![write verilog](https://github.com/user-attachments/assets/8d507920-6f08-43bf-b085-7bf6a238b052)
+
+![picorv32a synthesis](https://github.com/user-attachments/assets/dc6723f7-fedf-4354-8b9e-7d6003805071)
+
+
+
+
+
+
 
 
 
