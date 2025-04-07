@@ -654,13 +654,13 @@ run_synthesis
   ```bash
 sta pre_sta.conf
 
-# Reports all the connections to a net
+#Reports all the connections to a net
 report_net -connections _00293_
 
-# To replacing cell
+#To replacing cell
 replace_cell _33213_ sky130_fd_sc_hd__mux2_2
 
-# To generating custom timing report
+#To generating custom timing report
 report_checks -fields {net cap slew input_pins} -digits 4
 
   ```
